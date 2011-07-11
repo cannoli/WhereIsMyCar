@@ -3,10 +3,11 @@
 //  WhereIsMyCar
 //
 //  Created by Shu Chiun Cheah on 7/10/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Indiefoodies. All rights reserved.
 //
 
 #import "WhereIsMyCarAppDelegate.h"
+#import "CarLocator.h"
 
 @implementation WhereIsMyCarAppDelegate
 
@@ -21,6 +22,10 @@
     // Add the tab bar controller's current view as a subview of the window
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
+    // create global singletons
+    [CarLocator getInstance];
+    
     return YES;
 }
 
@@ -65,6 +70,7 @@
 
 - (void)dealloc
 {
+    [CarLocator destroyInstance];
     [_window release];
     [_tabBarController release];
     [super dealloc];

@@ -18,8 +18,9 @@
 		C458825013CAC196003097A4 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C458824F13CAC196003097A4 /* SecondViewController.m */; };
 		C458825313CAC196003097A4 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C458825113CAC196003097A4 /* FirstView.xib */; };
 		C458825613CAC196003097A4 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C458825413CAC196003097A4 /* SecondView.xib */; };
-		C45882A213CAC534003097A4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45882A113CAC534003097A4 /* CoreLocation.framework */; };
-		C45882A513CAC53A003097A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45882A413CAC53A003097A4 /* MapKit.framework */; };
+		C45882A613CAC57F003097A4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45882A413CAC53A003097A4 /* MapKit.framework */; };
+		C45882A713CAC582003097A4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C45882A113CAC534003097A4 /* CoreLocation.framework */; };
+		C45882AE13CACEE5003097A4 /* CarLocator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45882AD13CACEE5003097A4 /* CarLocator.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		C458825513CAC196003097A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SecondView.xib; sourceTree = "<group>"; };
 		C45882A113CAC534003097A4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C45882A413CAC53A003097A4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C45882AC13CACEE5003097A4 /* CarLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarLocator.h; sourceTree = "<group>"; };
+		C45882AD13CACEE5003097A4 /* CarLocator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CarLocator.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,11 +52,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C45882A513CAC53A003097A4 /* MapKit.framework in Frameworks */,
-				C45882A213CAC534003097A4 /* CoreLocation.framework in Frameworks */,
 				C458823713CAC196003097A4 /* UIKit.framework in Frameworks */,
 				C458823913CAC196003097A4 /* Foundation.framework in Frameworks */,
 				C458823B13CAC196003097A4 /* CoreGraphics.framework in Frameworks */,
+				C45882A713CAC582003097A4 /* CoreLocation.framework in Frameworks */,
+				C45882A613CAC57F003097A4 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		C458822713CAC196003097A4 = {
 			isa = PBXGroup;
 			children = (
+				C45882AB13CACEAC003097A4 /* Resources */,
 				C458823C13CAC196003097A4 /* WhereIsMyCar */,
 				C458823513CAC196003097A4 /* Frameworks */,
 				C458823313CAC196003097A4 /* Products */,
@@ -92,15 +96,14 @@
 		C458823C13CAC196003097A4 /* WhereIsMyCar */ = {
 			isa = PBXGroup;
 			children = (
+				C45882AC13CACEE5003097A4 /* CarLocator.h */,
+				C45882AD13CACEE5003097A4 /* CarLocator.mm */,
 				C458824513CAC196003097A4 /* WhereIsMyCarAppDelegate.h */,
 				C458824613CAC196003097A4 /* WhereIsMyCarAppDelegate.m */,
-				C458824813CAC196003097A4 /* MainWindow.xib */,
 				C458824B13CAC196003097A4 /* FirstViewController.h */,
 				C458824C13CAC196003097A4 /* FirstViewController.m */,
 				C458824E13CAC196003097A4 /* SecondViewController.h */,
 				C458824F13CAC196003097A4 /* SecondViewController.m */,
-				C458825113CAC196003097A4 /* FirstView.xib */,
-				C458825413CAC196003097A4 /* SecondView.xib */,
 				C458823D13CAC196003097A4 /* Supporting Files */,
 			);
 			path = WhereIsMyCar;
@@ -115,6 +118,16 @@
 				C458824313CAC196003097A4 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C45882AB13CACEAC003097A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C458824813CAC196003097A4 /* MainWindow.xib */,
+				C458825113CAC196003097A4 /* FirstView.xib */,
+				C458825413CAC196003097A4 /* SecondView.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +155,9 @@
 /* Begin PBXProject section */
 		C458822913CAC196003097A4 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = Indiefoodies;
+			};
 			buildConfigurationList = C458822C13CAC196003097A4 /* Build configuration list for PBXProject "WhereIsMyCar" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -182,6 +198,7 @@
 				C458824713CAC196003097A4 /* WhereIsMyCarAppDelegate.m in Sources */,
 				C458824D13CAC196003097A4 /* FirstViewController.m in Sources */,
 				C458825013CAC196003097A4 /* SecondViewController.m in Sources */,
+				C45882AE13CACEE5003097A4 /* CarLocator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +219,7 @@
 				C458824913CAC196003097A4 /* en */,
 			);
 			name = MainWindow.xib;
+			path = WhereIsMyCar;
 			sourceTree = "<group>";
 		};
 		C458825113CAC196003097A4 /* FirstView.xib */ = {
@@ -210,6 +228,7 @@
 				C458825213CAC196003097A4 /* en */,
 			);
 			name = FirstView.xib;
+			path = WhereIsMyCar;
 			sourceTree = "<group>";
 		};
 		C458825413CAC196003097A4 /* SecondView.xib */ = {
@@ -218,6 +237,7 @@
 				C458825513CAC196003097A4 /* en */,
 			);
 			name = SecondView.xib;
+			path = WhereIsMyCar;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
