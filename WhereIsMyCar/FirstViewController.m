@@ -11,12 +11,13 @@
 #import "CarLocator.h"
 
 @implementation FirstViewController
-
+@synthesize mapView;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[CarLocator getInstance] setTargetMapView:self.mapView];
     [[CarLocator getInstance] startUpdating];
 }
 

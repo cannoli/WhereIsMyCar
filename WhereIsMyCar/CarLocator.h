@@ -8,14 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CLLocationManagerDelegate.h>
+#import <MapKit/MKAnnotation.h>
 
 @class CLLocationManager;
-
-@interface CarLocator : NSObject<CLLocationManagerDelegate> 
+@class MKMapView;
+@interface CarLocator : NSObject<CLLocationManagerDelegate, MKAnnotation> 
 {
-    CLLocationManager* coreManager;
+    CLLocationManager*  coreManager;
+    MKMapView*          targetMapView;
+    
+    CLLocation*         parkedLocation;
 }
 @property (nonatomic,retain) CLLocationManager* coreManager;
+@property (nonatomic,retain) MKMapView*         targetMapView;
+@property (nonatomic,retain) CLLocation*        parkedLocation;
 
 + (CarLocator*)getInstance;
 + (void) destroyInstance;
