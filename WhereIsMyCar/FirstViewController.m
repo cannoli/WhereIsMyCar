@@ -7,8 +7,10 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "FirstViewController.h"
 #import "CarLocator.h"
+
 
 @implementation FirstViewController
 @synthesize mapView;
@@ -18,7 +20,15 @@
 {
     [super viewDidLoad];
     [[CarLocator getInstance] setTargetMapView:self.mapView];
-    [[CarLocator getInstance] startUpdating];
+    mapView.delegate = [CarLocator getInstance];
+    mapView.showsUserLocation = YES;
+    
+    // move the map to user's location
+    //CLLocation* userLoc = mapView.userLocation.location;
+    //MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(userLoc.coordinate, 100.0f, 100.0f);
+    //[mapView setRegion:newRegion animated:YES];
+        
+    //[[CarLocator getInstance] startUpdating];
 }
 
 

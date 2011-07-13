@@ -181,6 +181,7 @@
 							<reference ref="268481961"/>
 						</object>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Tab Bar Controller</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">107</int>

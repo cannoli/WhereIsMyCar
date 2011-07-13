@@ -10,11 +10,15 @@
 #import <MapKit/MapKit.h>
 #import "CarLocator.h"
 
+static const unsigned int USERLOCATEDCOUNT_MAX = 2;
 
 @implementation CarLocator
 @synthesize coreManager;
 @synthesize targetMapView;
 @synthesize parkedLocation;
+@synthesize parkingAnnotated;
+@synthesize userLocatedCount;
+@synthesize mapLoaded;
 
 #pragma mark -
 #pragma mark Singleton
@@ -51,6 +55,9 @@ static CarLocator* singletonInstance = nil;
         self.coreManager.delegate = self;
         self.targetMapView = nil;
         self.parkedLocation = nil;
+        self.parkingAnnotated = NO;
+        self.userLocatedCount = 0;
+        self.mapLoaded = YES;
     }
     return self;
 }
@@ -94,7 +101,11 @@ static CarLocator* singletonInstance = nil;
         
         // now put a pin where I am parked
 //        MKPinAnnotationView* newPin = [[MKPinAnnotationView alloc] initWithAnnotation:self reuseIdentifier:nil];
-        [targetMapView addAnnotation:self];
+        if(targetMapView.userLocationVisible)
+        {
+            // if user location is visible, drop the pin
+            [targetMapView addAnnotation:self];
+        }
     }
     // else skip the event and process the next one.
 }
@@ -116,6 +127,63 @@ static CarLocator* singletonInstance = nil;
     else
     {
         result = CLLocationCoordinate2DMake(0.0f, 0.0f);
+    }
+    return result;
+}
+
+#pragma mark -
+#pragma mark MKMapViewDelegate
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if(USERLOCATEDCOUNT_MAX > userLocatedCount)
+    {
+        // move the map to user's location
+        CLLocation* userLoc = mapView.userLocation.location;
+        MKCoordinateRegion newRegion = MKCoordinateRegionMakeWithDistance(userLoc.coordinate, 100.0f, 100.0f);
+        [mapView setRegion:newRegion animated:YES]; 
+        self.parkedLocation = userLoc;
+        ++userLocatedCount;
+    }
+}
+
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    if((userLocatedCount) || (mapView.userLocationVisible))
+    {
+        // drop the pin
+        [mapView addAnnotation:self];
+        NSLog(@"drop pin");
+    }   
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    MKAnnotationView* result = nil;
+    
+    // If it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+    {
+        result = nil;
+    }
+    else
+    {
+        // Handle any custom annotations.
+        if ([annotation isKindOfClass:[CarLocator class]])
+        {
+            result = [mapView dequeueReusableAnnotationViewWithIdentifier:@"ParkedLocation"];
+            if(nil == result)
+            {
+                MKPinAnnotationView* newPin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"ParkedLocation"];
+                newPin.animatesDrop = YES;
+                result = newPin;
+                NSLog(@"new pin");
+            }
+            else
+            {
+                NSLog(@"reused");
+            }
+        }
     }
     return result;
 }
